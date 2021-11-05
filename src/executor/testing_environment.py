@@ -34,6 +34,12 @@ class TestingEnvironment:
     def send(self, header=None, payload={}) -> None:
         return self.client.send(header, payload)
 
+    def pre_process_payload(self, payload):
+        return payload
+    
+    def post_process_response(self, response, expected):
+        return response
+
     def step(self, step: dict) -> Union[bool, str]:
 
         payload = {
@@ -42,13 +48,31 @@ class TestingEnvironment:
                 "params": step["params"],
                 "id": step["id"]
             }
-        resp = self.send(payload=payload)
+        resp, err = self.send(payload=self.pre_process_payload(payload))
 
-        if not "expect" in step:
-            return False, 'Expect not in test step'
+        if not "expect" in step and not "expectError" in step:
+            return False, "'expect'/'expectError' not in test step"
+        
+        if "expect" in step and "expectError" in step:
+            return False, "'expect'/'expectError' both in test step"
 
-        if not step["expect"] == resp:
-            return False, f'Expect doesn\'t match response: {resp}/{step["expect"]}'
+        if "expect" in step:
+            if err:
+                return False, f'Client returned error: {resp}'
+
+            resp = self.post_process_response(resp, step["expect"])
+            
+            if not step["expect"] == resp:
+                return False, f'\'expect\' doesn\'t match response: {resp}/{step["expect"]}'
+        
+        elif "expectError" in step:
+            if not err:
+                return False, f'Client succeeded unexpectedly: {resp}/{step["expectError"]}'
+
+            resp = self.post_process_response(resp, step["expectError"])
+
+            if not step["expectError"] == resp:
+                return False, f'\'expectError\' doesn\'t match response: {resp}/{step["expectError"]}'
 
         return True, "Success"
 

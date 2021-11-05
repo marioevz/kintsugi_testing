@@ -4,6 +4,7 @@ import subprocess
 import re
 import requests
 import json
+from time import sleep
 
 class Client:
     exec_path = None
@@ -67,13 +68,19 @@ class Client:
         url = 'http://localhost:8545/'
         if header is None:
             header = {"Content-Type": "application/json"}
-        r = requests.post(url, json=payload, headers=header)
+        r = None
+        try:
+            r = requests.post(url, json=payload, headers=header, timeout=10)
+        except requests.exceptions.ReadTimeout:
+            print(f'Request ({json.dumps(payload)}) timeout')
+            sleep(60)
+            return 'Timeout', False
         resp = json.loads(r.text)
         if 'result' in resp:
-            return resp['result']
+            return resp['result'], False
         if 'error' in resp:
-            return resp['error']
-        return resp
+            return resp['error'], True
+        return resp, True
 
     def stop(self):
         self.node_process.terminate()

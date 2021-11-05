@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 from testing_environment import TestingEnvironment
+from os import path
+import sys
 import argparse
 import json
+import importlib
+
+# Add tests directory to the path
+tests_path = path.join(path.dirname(path.dirname(path.abspath(__file__))), 'tests')
+sys.path.append(tests_path)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Engine test case execute.')
@@ -11,16 +18,26 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    for test_file_path in args.test_files:
-        print(f"Loading {test_file_path}")
+    for tc_name in args.test_files:
+        print(f"Loading {tc_name}")
 
         tc = None
         err = None
-        try:
-            with open(test_file_path, 'r') as f:
-                tc = json.load(f)
-        except Exception as ex:
-            err = ex
+        if path.isfile(path.join(tests_path, tc_name + '.json')):
+            try:
+                with open(path.join(tests_path, tc_name + '.json'), 'r') as f:
+                    tc = json.load(f)
+            except Exception as ex:
+                err = ex
+        else:
+            try:
+                # Try to load as package
+                imported_tc = importlib.import_module(name=tc_name)
+                tc = {}
+                tc['genesis'] = imported_tc.genesis
+                tc['steps'] = imported_tc.steps
+            except Exception as ex:
+                err = ex
 
         if not tc or err:
             print(f"WARN: Unable to load {tc} ({err}), skipping")
@@ -40,9 +57,9 @@ if __name__ == "__main__":
         for id, step in enumerate(tc["steps"]):
             result, details = test_case_env.step(step)
             if result:
-                print(f"SUCC: Test case {test_file_path} step {id} succeeded")
+                print(f"SUCC: Test case {tc_name}, step {id + 1} succeeded")
             else:
-                print(f"FAIL: Test case {test_file_path} step {id} failed: {details}")
+                print(f"FAIL: Test case {tc_name}, step {id + 1} failed: {details}")
                 break
 
         test_case_env.cleanup()

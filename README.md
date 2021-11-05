@@ -1,4 +1,4 @@
-# Kintsugi Testing
+# Kintsugi🍵 Testing
 Adhoc Testing Framework for Kintsugi Tests
 
 ## Usage
