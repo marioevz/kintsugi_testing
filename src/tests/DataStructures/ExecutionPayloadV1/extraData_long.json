@@ -82,7 +82,6 @@
             }
         },
         {
-            "comment": "Should fail because the current block (genesis) brings the totalDifficulty just under the terminalTotalDifficulty.",
             "method": "engine_executePayloadV1",
             "params": [
                 {
@@ -95,18 +94,38 @@
                     "blockNumber": "0x1",
                     "gasLimit": "0x1c9c380",
                     "gasUsed": "0x0",
-                    "timestamp": "0x5",
-                    "extraData": "0x",
+                    "timestamp": "0x11",
+                    "extraData": "0x000000000000000000000000000000000000000000000000000000000000000001",
                     "baseFeePerGas": "0x7",
-                    "blockHash": "0x3559e851470f6e7bbed1db474980683e8c315bfce99b2a6ef47c057c04de7858",
-                    "difficulty": 1,
+                    "blockHash": "0x609267a128f4fe17c4f6de81500f356b4441c3134aeecd7b3b64120378d32a5f",
                     "transactions": []
                 }
             ],
             "id": 69,
             "expectError": {
                 "code": -32000,
-                "message": "can not execute payload on top of block with low td got: 17179869184 threshold 17179869185"
+                "message": "invalid extradata length: 33"
+            }
+        },
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0x609267a128f4fe17c4f6de81500f356b4441c3134aeecd7b3b64120378d32a5f",
+                    "safeBlockHash": "0x609267a128f4fe17c4f6de81500f356b4441c3134aeecd7b3b64120378d32a5f",
+                    "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+                },
+                {
+                    "parentHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a",
+                    "timestamp": "0x5",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                    "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+                }
+            ],
+            "id": 70,
+            "expect": {
+                "status": "INVALID",
+                "payloadId": "0x"
             }
         }
     ]

@@ -4,7 +4,6 @@ import subprocess
 import re
 import requests
 import json
-from time import sleep
 
 class Client:
     exec_path = None
@@ -12,10 +11,13 @@ class Client:
     node_process = None
 
     # Client specific methods
-    def prepare_init_genesis_command(self, genesis_path) -> list[str]:
+    def prepare_init_command(self, config = {}) -> list[str]:
+        if not 'genesis_path' in config:
+            raise Exception('Genesis json path not in config')
+        genesis_path = config['genesis_path']
         return [self.exec_path, '--catalyst', '--datadir', self.data_dir_path, 'init', genesis_path]
 
-    def prepare_start_command(self) -> list[str]:
+    def prepare_start_command(self, config = {}) -> list[str]:
         return [self.exec_path, '--catalyst', '--http', '--ws', '-http.api', "engine", '--datadir', self.data_dir_path]
 
     def detect_start(self, proc) -> bool:
@@ -42,10 +44,10 @@ class Client:
     def set_data_dir(self, data_dir_path):
         self.data_dir_path = data_dir_path
 
-    def init(self, genesis_path):
+    def init(self, config):
         if not self.data_dir_path:
             raise Exception('datadir had not been provided')
-        p = subprocess.Popen(self.prepare_init_genesis_command(genesis_path),
+        p = subprocess.Popen(self.prepare_init_command(config),
                                                 stdout=subprocess.PIPE,
                                                 stderr=subprocess.PIPE,
                                                 encoding='utf8')
@@ -73,8 +75,7 @@ class Client:
             r = requests.post(url, json=payload, headers=header, timeout=10)
         except requests.exceptions.ReadTimeout:
             print(f'Request ({json.dumps(payload)}) timeout')
-            sleep(60)
-            return 'Timeout', False
+            return {'message': 'Timeout (Payload={json.dumps(payload)})'}, False
         resp = json.loads(r.text)
         if 'result' in resp:
             return resp['result'], False
