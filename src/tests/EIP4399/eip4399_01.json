@@ -1,0 +1,156 @@
+{
+    "genesis": {
+        "config": {
+            "chainId": 1,
+            "homesteadBlock": 0,
+            "eip150Block": 0,
+            "eip155Block": 0,
+            "eip158Block": 0,
+            "byzantiumBlock": 0,
+            "constantinopleBlock": 0,
+            "petersburgBlock": 0,
+            "istanbulBlock": 0,
+            "muirGlacierBlock": 0,
+            "berlinBlock": 0,
+            "londonBlock": 0,
+            "clique": {
+                "period": 5,
+                "epoch": 30000
+            },
+            "terminalTotalDifficulty": 0
+        },
+        "nonce": "0x42",
+        "timestamp": "0x0",
+        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "gasLimit": "0x1C9C380",
+        "difficulty": "0x400000000",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+            "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b": {
+                "balance": "0x6d6172697573766477000000"
+            },
+            "0x00000000000000000000000000000000b0b0face": {
+                "code": "0x40600052",
+                "storage": {},
+                "balance": "0x0",
+                "nonce": "0x0"
+            },
+            "0x000000000000000000000000000000ca1100f022": {
+                "code": "0x444455",
+                "storage": {},
+                "balance": "0x0",
+                "nonce": "0x0"
+            }
+        },
+        "number": "0x0",
+        "gasUsed": "0x0",
+        "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "baseFeePerGas": "0x7"
+    },
+    "steps": [
+        {
+            "method": "eth_sendRawTransaction",
+            "params": [
+                "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+            ],
+            "expect": "0x28d01c44d46217e141e02783a89ffff35d3f91fd9ce91649fad6375fd5c0beca"
+        },
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0xf329a1589055aad9ad72f95a3ed4a40334a88c9f0e7eca667ffc0b4f809f3317",
+                    "safeBlockHash": "0xf329a1589055aad9ad72f95a3ed4a40334a88c9f0e7eca667ffc0b4f809f3317",
+                    "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+                },
+                {
+                    "parentHash": "0xf329a1589055aad9ad72f95a3ed4a40334a88c9f0e7eca667ffc0b4f809f3317",
+                    "timestamp": "0x5",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000001234",
+                    "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+                }
+            ],
+            "expect": {
+                "status": "SUCCESS",
+                "payloadId": "0x9cf54487724b6c91"
+            }
+        },
+        
+        {
+            "method": "engine_getPayloadV1",
+            "params": [
+                "0x9cf54487724b6c91"
+            ],
+            "expect": {
+                "parentHash": "0xf329a1589055aad9ad72f95a3ed4a40334a88c9f0e7eca667ffc0b4f809f3317",
+                "coinbase": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+                "stateRoot": "0x4f70b8b611d504078b4c9a873232776d4b6fe47a873865fe3bb58d65673ade79",
+                "receiptRoot": "0xac9439e11831b57ebf4fc60a98ac937de2ee9744546870b363e0c0f20cabebc2",
+                "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                "random": "0x0000000000000000000000000000000000000000000000000000000000001234",
+                "blockNumber": "0x1",
+                "gasLimit": "0x1c9c380",
+                "gasUsed": "0x5aa4",
+                "timestamp": "0x5",
+                "extraData": "0x",
+                "baseFeePerGas": "0x7",
+                "blockHash": "0xc2cca5c18fbe57fc6a0eb5bc1027ed69cfd5d42b6fe39c6c830252d0b113b4d0",
+                "transactions": [
+                    "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+                ]
+            }
+        },
+        {
+            "method": "engine_executePayloadV1",
+            "params": [
+                {
+                    "parentHash": "0xf329a1589055aad9ad72f95a3ed4a40334a88c9f0e7eca667ffc0b4f809f3317",
+                    "coinbase": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+                    "stateRoot": "0x4f70b8b611d504078b4c9a873232776d4b6fe47a873865fe3bb58d65673ade79",
+                    "receiptRoot": "0xac9439e11831b57ebf4fc60a98ac937de2ee9744546870b363e0c0f20cabebc2",
+                    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000001234",
+                    "blockNumber": "0x1",
+                    "gasLimit": "0x1c9c380",
+                    "gasUsed": "0x5aa4",
+                    "timestamp": "0x5",
+                    "extraData": "0x",
+                    "baseFeePerGas": "0x7",
+                    "blockHash": "0xc2cca5c18fbe57fc6a0eb5bc1027ed69cfd5d42b6fe39c6c830252d0b113b4d0",
+                    "transactions": [
+                        "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+                    ]
+                }
+            ],
+            "expect": {
+                "status": "VALID",
+                "latestValidHash": "0xc2cca5c18fbe57fc6a0eb5bc1027ed69cfd5d42b6fe39c6c830252d0b113b4d0"
+            }
+        },
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0xc2cca5c18fbe57fc6a0eb5bc1027ed69cfd5d42b6fe39c6c830252d0b113b4d0",
+                    "safeBlockHash": "0xc2cca5c18fbe57fc6a0eb5bc1027ed69cfd5d42b6fe39c6c830252d0b113b4d0",
+                    "finalizedBlockHash": "0xc2cca5c18fbe57fc6a0eb5bc1027ed69cfd5d42b6fe39c6c830252d0b113b4d0"
+                },
+                null
+            ],
+            "expect": {
+                "status": "SUCCESS",
+                "payloadId": "0x"
+            }
+        },
+        {
+            "method": "eth_getStorageAt",
+            "params": [
+                "0x000000000000000000000000000000ca1100f022",
+                "0x0000000000000000000000000000000000000000000000000000000000001234",
+                "latest"
+            ],
+            "expect": "0x0000000000000000000000000000000000000000000000000000000000001234"
+        }
+    ]
+}
