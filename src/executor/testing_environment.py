@@ -1,35 +1,29 @@
 #!/usr/bin/env python3
 from os import remove
+from os.path import isdir
 from typing import Union, Tuple
 import json
 from tempfile import TemporaryDirectory, mkstemp
 from clients import Client
 
+def write_genesis(genesis) -> str:
+    (_, genesis_path) = mkstemp(suffix='.json')
+    with open(genesis_path, 'w') as f:
+        json.dump(genesis, f)
+    return genesis_path
 class TestingEnvironment:
     data_dir = None
+    current_method_id = 0
 
-    def __init__(self, client: str, client_path = '') -> None:
-        self.client = Client(client, client_path)
-        self.prepare_datadir()
-        # self.genesis = genesis
-    
-    def prepare_datadir(self) -> None:
+    def __init__(self, config) -> None:
+        # Prepare data_dir
         self.data_dir = TemporaryDirectory()
-        self.client.set_data_dir(self.data_dir.name)
-
-    def write_genesis(self, genesis) -> str:
-        (_, genesis_path) = mkstemp(suffix='.json')
-        with open(genesis_path, 'w') as f:
-            json.dump(genesis, f)
-        return genesis_path
-    
-    def init(self, genesis) -> None:
-        gen_json = self.write_genesis(genesis)
-        config = {
-            'genesis_path': gen_json
-        }
-        self.client.init(config)
-        remove(gen_json)
+        config['data_dir_path'] = self.data_dir.name
+        config['genesis_path'] = write_genesis(config['genesis'])
+        # Init client
+        self.client = Client(config)
+        if 'genesis_path' in config and isdir(config['genesis_path']):
+            remove(config['genesis_path'])
         
     def run(self) -> None:
         self.client.start()
@@ -43,34 +37,35 @@ class TestingEnvironment:
     def post_process_response(self, response, expected):
         return response
     
-    def check_expect_diff(self, resp, expect) -> Union[None, str]:
-        if not type(resp) is dict or not type(expect) is dict:
-            raise Exception('Invalid comparison')
-        if resp.keys() ^ expect.keys():
-            return f'Conflicting keys: {resp.keys() ^ expect.keys()}'
-        for k in resp.keys():
-            if type(resp[k]) == type(expect[k]):
-                if type(resp[k]) is dict:
-                    diff = self.check_expect_diff(resp[k], expect[k])
-                    if diff:
-                        return diff
-                if expect[k] != '*' and expect[k] != resp[k]:
-                    return f'{k}, "{expect[k]}" != "{resp[k]}"'
-            else:
-                if expect[k] == '*':
-                    continue
-                else:
-                    return f'{k} has differing types'
+    def check_expect_diff(self, k_route, resp, expect) -> Union[None, str]:
+        if expect == '*':
+            return None
+
+        if type(resp) != type(expect):
+            return f"{'/'.join(k_route)} has unexpected type"
+
+        if type(resp) is dict:
+            if resp.keys() ^ expect.keys():
+                return f'Conflicting keys: {resp.keys() ^ expect.keys()}'
+            for k in resp.keys():
+                diff = self.check_expect_diff(k_route + [k], resp[k], expect[k])
+                if diff:
+                    return diff
+        elif resp != expect:
+            return f'{"/".join(k_route)}, "{expect}" != "{resp}"'
         return None
 
     def step(self, step: dict) -> Tuple[bool, str]:
-
+        id = self.current_method_id + 1
+        if "id" in step:
+            id = step["id"]
         payload = {
                 "jsonrpc":"2.0",
                 "method": step["method"],
                 "params": step["params"],
-                "id": step["id"]
+                "id": id
             }
+        self.current_method_id = id
         resp, err = self.send(payload=self.pre_process_payload(payload))
 
         if not "expect" in step and not "expectError" in step:
@@ -85,7 +80,7 @@ class TestingEnvironment:
 
             resp = self.post_process_response(resp, step["expect"])
 
-            diff = self.check_expect_diff(resp, step["expect"])
+            diff = self.check_expect_diff(["expect"], resp, step["expect"])
 
             if diff:
                 return False, f'\'expect\' doesn\'t match response: {diff}'
@@ -96,7 +91,7 @@ class TestingEnvironment:
 
             resp = self.post_process_response(resp, step["expectError"])
 
-            diff = self.check_expect_diff(resp, step["expectError"])
+            diff = self.check_expect_diff(["expectError"], resp, step["expectError"])
 
             if diff:
                 return False, f'\'expectError\' doesn\'t match response: {diff}'

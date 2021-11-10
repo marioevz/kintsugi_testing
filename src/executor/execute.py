@@ -10,7 +10,7 @@ import importlib
 tests_path = path.join(path.dirname(path.dirname(path.abspath(__file__))), 'tests')
 sys.path.append(tests_path)
 
-def executeTest(tc_name, client, client_path):
+def executeTest(tc_name, config={}):
 
     print(f"Loading {tc_name}")
 
@@ -40,47 +40,48 @@ def executeTest(tc_name, client, client_path):
         print(f"WARN: Test case does not contain 'steps', skipping")
         return
 
-    test_case_env = TestingEnvironment(client=client, client_path=client_path)
+    tc_config = config.copy()
 
     if "genesis" in tc:
-        test_case_env.init(tc["genesis"])
+        tc_config['genesis'] = tc["genesis"]
+
+    test_case_env = TestingEnvironment(tc_config)
 
     test_case_env.run()
 
     for i, step in enumerate(tc["steps"]):
-        id = 'Unkn'
-        if 'id' in step:
-            id = step['id']
         result, details = test_case_env.step(step)
         if result:
-            print(f"SUCC: Test case={tc_name}, step={i + 1}, id={id}, succeeded")
+            print(f"SUCC: Test case={tc_name}, step={i + 1}, id={test_case_env.current_method_id}, succeeded")
         else:
-            print(f"FAIL: Test case={tc_name}, step={i + 1}, id={id}, failed: {details}")
+            print(f"FAIL: Test case={tc_name}, step={i + 1}, id={test_case_env.current_method_id}, failed: {details}")
             break
 
     test_case_env.cleanup()
 
-def executeCategory(cat_name, client, client_path):
+def executeCategory(cat_name, config={}):
     if not path.isdir(path.join(tests_path, cat_name)):
         raise Exception('Invalid category name')
     print(f"Loading category {cat_name}")
     listed_dir = [x for x in listdir(path.join(tests_path, cat_name)) if not x.startswith('_')]
     for d in [x for x in listed_dir if path.isdir(path.join(tests_path, cat_name, x))]:
-        executeCategory(path.join(cat_name, d), client, client_path)
+        executeCategory(path.join(cat_name, d), config)
     for f in [x for x in listed_dir if path.isfile(path.join(tests_path, cat_name, x))]:
-        executeTest(path.splitext(path.join(cat_name, f))[0], client, client_path)
+        executeTest(path.splitext(path.join(cat_name, f))[0], config)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Engine test case execute.')
     parser.add_argument('test_files', metavar='test.json', type=str, nargs='+', help='Test case files to execute')
     parser.add_argument('--client', metavar='CLIENT-NAME', type=str, default='geth', help='Client to use. Default: geth')
     parser.add_argument('--client-path', metavar='/path/to/client', type=str, help='Path of the client binary. Default: $(which <CLIENT-NAME>)')
+    parser.add_argument('--print-init-output', action='store_true', help='Print client\'s init command stdout and stderr.')
+    parser.add_argument('--verbose', action='store_true', help='Instruct client to be verbose.')
 
     args = parser.parse_args()
 
     for tc_name in args.test_files:
         if path.isdir(path.join(tests_path, tc_name)):
-            executeCategory(tc_name, args.client, args.client_path)
+            executeCategory(tc_name, config=vars(args))
         else:
-            executeTest(tc_name, args.client, args.client_path)
+            executeTest(tc_name, config=vars(args))
 
