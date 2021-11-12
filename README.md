@@ -2,8 +2,12 @@
 Adhoc Testing Framework for Kintsugi Tests
 
 ## Usage
+# Geth
 ```
-./src/executor/execute.py <Test case name> [--client <Client Name>] [--client-path /path/to/client/binary]
+./src/executor/execute.py <Test case name> [--client-binary /path/to/geth]
 ```
 
-Only geth is supported at the moment.
+# Nethermind
+```
+./src/executor/execute.py <Test case name> --client nethermind [--client-binary /path/to/dotnet] --client-working-path /path/to/Nethermind.Runner
+```
