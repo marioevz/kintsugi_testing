@@ -1,0 +1,138 @@
+{
+    "genesis": {
+        "config": {
+            "chainId": 1,
+            "homesteadBlock": 0,
+            "eip150Block": 0,
+            "eip155Block": 0,
+            "eip158Block": 0,
+            "byzantiumBlock": 0,
+            "constantinopleBlock": 0,
+            "petersburgBlock": 0,
+            "istanbulBlock": 0,
+            "muirGlacierBlock": 0,
+            "berlinBlock": 0,
+            "londonBlock": 0,
+            "clique": {
+                "period": 5,
+                "epoch": 30000
+            },
+            "terminalTotalDifficulty": 0
+        },
+        "nonce": "0x42",
+        "timestamp": "0x0",
+        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "gasLimit": "0x1C9C380",
+        "difficulty": "0x400000000",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+            "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b": {
+                "balance": "0x6d6172697573766477000000"
+            },
+            "0x00000000000000000000000000000000b0b0face": {
+                "code": "0x40600052",
+                "storage": {},
+                "balance": "0x0",
+                "nonce": "0x0"
+            },
+            "0x000000000000000000000000000000ca1100f022": {
+                "code": "0x60016001554444556002600255",
+                "storage": {},
+                "balance": "0x0",
+                "nonce": "0x0"
+            }
+        },
+        "number": "0x0",
+        "gasUsed": "0x0",
+        "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "baseFeePerGas": "0x7"
+    },
+    "steps": 
+    [
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0x156d82f8a430eab572da630bb179e4fbb58d562e70e523cfacf40ecb9da1f0be",
+                    "safeBlockHash": "0x156d82f8a430eab572da630bb179e4fbb58d562e70e523cfacf40ecb9da1f0be",
+                    "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+                },
+                null
+            ],
+            "expect": {
+                "status": "SUCCESS",
+                "payloadId": "0x"
+            }
+        },
+        {
+            "method": "engine_executePayloadV1",
+            "params": [
+                {
+                    "parentHash": "0x156d82f8a430eab572da630bb179e4fbb58d562e70e523cfacf40ecb9da1f0be",
+                    "coinbase": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+                    "stateRoot": "0xd58c1b2384c098496826e686e3a2566e787d44cfa25c7047741d14f15407af7b",
+                    "receiptRoot": "0xc21a752e648efc624ce6ab4c1acb4c011218d0498d879cf0d4bda4bb5cb856e5",
+                    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000001234",
+                    "blockNumber": "0x1",
+                    "gasLimit": "0x1c9c380",
+                    "gasUsed": "0x15514",
+                    "timestamp": "0x5",
+                    "extraData": "0x",
+                    "baseFeePerGas": "0x7",
+                    "blockHash": "0x80875014d0e8c0e0bc986418b4ba7ad905bf30a81e499c395cf300cf9fc048a4",
+                    "transactions": [
+                        "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+                    ]
+                }
+            ],
+            "expect": {
+                "status": "VALID",
+                "latestValidHash": "0x80875014d0e8c0e0bc986418b4ba7ad905bf30a81e499c395cf300cf9fc048a4"
+            }
+        },
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0x80875014d0e8c0e0bc986418b4ba7ad905bf30a81e499c395cf300cf9fc048a4",
+                    "safeBlockHash": "0x80875014d0e8c0e0bc986418b4ba7ad905bf30a81e499c395cf300cf9fc048a4",
+                    "finalizedBlockHash": "0x80875014d0e8c0e0bc986418b4ba7ad905bf30a81e499c395cf300cf9fc048a4"
+                },
+                null
+            ],
+            "expect": {
+                "status": "SUCCESS",
+                "payloadId": "0x"
+            }
+        },
+        {
+            "method": "eth_getStorageAt",
+            "params": [
+                "0x000000000000000000000000000000ca1100f022",
+                "0x0000000000000000000000000000000000000000000000000000000000000001",
+                "latest"
+            ],
+            "expect": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        },
+        {
+            "method": "eth_getStorageAt",
+            "params": [
+                "0x000000000000000000000000000000ca1100f022",
+                "0x0000000000000000000000000000000000000000000000000000000000000002",
+                "latest"
+            ],
+            "expect": "0x0000000000000000000000000000000000000000000000000000000000000002"
+        },
+        {
+            "method": "eth_getStorageAt",
+            "params": [
+                "0x000000000000000000000000000000ca1100f022",
+                "0x0000000000000000000000000000000000000000000000000000000000001234",
+                "latest"
+            ],
+            "expect": "0x0000000000000000000000000000000000000000000000000000000000001234"
+        }
+    ]
+}

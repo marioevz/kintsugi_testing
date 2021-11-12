@@ -47,10 +47,13 @@ class TestingEnvironment:
         if type(resp) is dict:
             if resp.keys() ^ expect.keys():
                 return f'Conflicting keys: {resp.keys() ^ expect.keys()}'
+            diffs = []
             for k in resp.keys():
                 diff = self.check_expect_diff(k_route + [k], resp[k], expect[k])
                 if diff:
-                    return diff
+                    diffs.append(diff)
+            if diffs:
+                return ', '.join(diffs)
         elif resp != expect:
             return f'{"/".join(k_route)}, "{expect}" != "{resp}"'
         return None

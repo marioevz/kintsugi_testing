@@ -7,7 +7,7 @@ import json
 import importlib
 
 # Add tests directory to the path
-tests_path = path.join(path.dirname(path.dirname(path.abspath(__file__))), 'tests')
+tests_path = path.join(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))), 'tests')
 sys.path.append(tests_path)
 
 def executeTest(tc_name, config={}):

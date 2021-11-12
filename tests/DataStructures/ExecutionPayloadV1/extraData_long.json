@@ -123,9 +123,9 @@
                 }
             ],
             "id": 70,
-            "expect": {
-                "status": "INVALID",
-                "payloadId": "0x"
+            "expectError": {
+                "code": -32000,
+                "message": "*"
             }
         }
     ]
