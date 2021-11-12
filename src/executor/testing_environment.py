@@ -1,16 +1,7 @@
 #!/usr/bin/env python3
-from os import remove
-from os.path import isdir
 from typing import Union, Tuple
-import json
-from tempfile import TemporaryDirectory, mkstemp
-from clients import Client
-
-def write_genesis(genesis) -> str:
-    (_, genesis_path) = mkstemp(suffix='.json')
-    with open(genesis_path, 'w') as f:
-        json.dump(genesis, f)
-    return genesis_path
+from tempfile import TemporaryDirectory
+from client import Client
 class TestingEnvironment:
     data_dir = None
     current_method_id = 0
@@ -19,11 +10,8 @@ class TestingEnvironment:
         # Prepare data_dir
         self.data_dir = TemporaryDirectory()
         config['data_dir_path'] = self.data_dir.name
-        config['genesis_path'] = write_genesis(config['genesis'])
         # Init client
         self.client = Client(config)
-        if 'genesis_path' in config and isdir(config['genesis_path']):
-            remove(config['genesis_path'])
         
     def run(self) -> None:
         self.client.start()

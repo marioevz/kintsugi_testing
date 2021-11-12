@@ -44,6 +44,9 @@ def executeTest(tc_name, config={}):
 
     if "genesis" in tc:
         tc_config['genesis'] = tc["genesis"]
+    
+
+    tc_config['tc_name'] = path.basename(tc_name)
 
     test_case_env = TestingEnvironment(tc_config)
 
@@ -73,7 +76,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Engine test case execute.')
     parser.add_argument('test_files', metavar='test.json', type=str, nargs='+', help='Test case files to execute')
     parser.add_argument('--client', metavar='CLIENT-NAME', type=str, default='geth', help='Client to use. Default: geth')
-    parser.add_argument('--client-path', metavar='/path/to/client', type=str, help='Path of the client binary. Default: $(which <CLIENT-NAME>)')
+    parser.add_argument('--client-binary', metavar='/path/to/client/bin', type=str, help='Path of the client binary. Default: $(which <CLIENT-NAME>)')
+    parser.add_argument('--client-working-path', metavar='/path/to/working/dir/', type=str, help='Used for some clients for working directory.')
     parser.add_argument('--print-init-output', action='store_true', help='Print client\'s init command stdout and stderr.')
     parser.add_argument('--verbose', action='store_true', help='Instruct client to be verbose.')
 
