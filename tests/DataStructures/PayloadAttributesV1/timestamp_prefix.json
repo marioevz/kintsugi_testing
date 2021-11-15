@@ -56,7 +56,7 @@
             "id": 67,
             "expectError": {
                 "code": -32602,
-                "message": "*"
+                "message": ":re (invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64|Invalid params)"
             }
         }
     ]

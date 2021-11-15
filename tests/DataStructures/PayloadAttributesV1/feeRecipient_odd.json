@@ -56,7 +56,7 @@
             "id": 67,
             "expectError": {
                 "code": -32602,
-                "message": "*"
+                "message": ":re (invalid argument 1: json: cannot unmarshal hex string of odd length into Go struct field PayloadAttributesV1.feeRecipient of type common.Address|Invalid params)"
             }
         }
     ]

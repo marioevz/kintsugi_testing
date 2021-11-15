@@ -75,13 +75,13 @@
             ],
             "expect": {
                 "status": "SUCCESS",
-                "payloadId": "0x708e607815e63367"
+                "payloadId": ":re 0x[0-9a-f]{16}"
             }
         },
         {
             "method": "engine_getPayloadV1",
             "params": [
-                "0x708e607815e63367"
+                ":payloadId"
             ],
             "expect": {
                 "parentHash": "0x156d82f8a430eab572da630bb179e4fbb58d562e70e523cfacf40ecb9da1f0be",
@@ -141,7 +141,7 @@
             ],
             "expect": {
                 "status": "SUCCESS",
-                "payloadId": "0x"
+                "payloadId": null
             }
         },
         {

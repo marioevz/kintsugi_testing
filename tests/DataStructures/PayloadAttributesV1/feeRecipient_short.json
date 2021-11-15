@@ -56,7 +56,7 @@
             "id": 67,
             "expectError": {
                 "code": -32602,
-                "message": "*"
+                "message": ":re (invalid argument 1: hex string has length 38, want 40 for common.Address|Invalid params)"
             }
         }
     ]

@@ -55,7 +55,7 @@
             "id": 67,
             "expectError": {
                 "code": -32000,
-                "message": "*"
+                "message": "total difficulty not reached yet"
             }
         },
         {
@@ -66,7 +66,7 @@
             "id": 68,
             "expectError": {
                 "code": -32001,
-                "message": "*"
+                "message": "unknown payload"
             }
         },
         {
@@ -92,7 +92,7 @@
             "id": 69,
             "expectError": {
                 "code": -32000,
-                "message": "*"
+                "message": "can not execute payload on top of block with low td got: 17179869184 threshold 17179869185"
             }
         }
     ]
