@@ -99,11 +99,9 @@ def prepare_start_command(config) -> list[str]:
 
 
 def detect_start(proc) -> bool:
-    
     start_detected = False
     while not start_detected:
         line = proc.stdout.readline().strip()
-        print(line)
         if not line:
             break
         m = re.search(r'Nethermind initialization completed', line)

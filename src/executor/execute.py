@@ -52,25 +52,32 @@ def executeTest(tc_name, config={}):
 
     test_case_env.run()
 
+    test_passed = True
+
     for i, step in enumerate(tc["steps"]):
         result, details = test_case_env.step(step)
         if result:
             print(f"SUCC: Test case={tc_name}, step={i + 1}, id={test_case_env.current_method_id}, succeeded")
         else:
             print(f"FAIL: Test case={tc_name}, step={i + 1}, id={test_case_env.current_method_id}, failed: {details}")
+            test_passed = False
             break
 
     test_case_env.cleanup()
+
+    return test_passed
 
 def executeCategory(cat_name, config={}):
     if not path.isdir(path.join(tests_path, cat_name)):
         raise Exception('Invalid category name')
     print(f"Loading category {cat_name}")
     listed_dir = [x for x in listdir(path.join(tests_path, cat_name)) if not x.startswith('_')]
+    results = []
     for d in [x for x in listed_dir if path.isdir(path.join(tests_path, cat_name, x))]:
-        executeCategory(path.join(cat_name, d), config)
+        results += executeCategory(path.join(cat_name, d), config)
     for f in [x for x in listed_dir if path.isfile(path.join(tests_path, cat_name, x))]:
-        executeTest(path.splitext(path.join(cat_name, f))[0], config)
+        results.append(executeTest(path.splitext(path.join(cat_name, f))[0], config))
+    return results
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Engine test case execute.')
@@ -85,7 +92,8 @@ if __name__ == "__main__":
 
     for tc_name in args.test_files:
         if path.isdir(path.join(tests_path, tc_name)):
-            executeCategory(tc_name, config=vars(args))
+            results = executeCategory(tc_name, config=vars(args))
+            print(f"\nTest passed {sum(results)}/{len(results)}")
         else:
             executeTest(tc_name, config=vars(args))
 
