@@ -29,10 +29,6 @@ MESSAGES = {
     'Timestamp_Prefix':             'Invalid params',
     'Timestamp_LeadingZeros':       'Invalid params',
     'Timestamp_Empty':              'Invalid params',
-    'ParentHash_TooShort':          'Invalid params',
-    'ParentHash_TooLong':           'Invalid params',
-    'ParentHash_Odd':               'Invalid params',
-    'ParentHash_Prefix':            'Invalid params',
 }
 
 # Geth Client Specific Methods

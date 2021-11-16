@@ -66,7 +66,6 @@
                     "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
                 },
                 {
-                    "parentHash": "0x156d82f8a430eab572da630bb179e4fbb58d562e70e523cfacf40ecb9da1f0be",
                     "timestamp": "0x5",
                     "random": "0x0000000000000000000000000000000000000000000000000000000000001234",
                     "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
@@ -86,7 +85,6 @@
                     "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
                 },
                 {
-                    "parentHash": "0x156d82f8a430eab572da630bb179e4fbb58d562e70e523cfacf40ecb9da1f0be",
                     "timestamp": "0x5",
                     "random": "0x0000000000000000000000000000000000000000000000000000000000004321",
                     "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"

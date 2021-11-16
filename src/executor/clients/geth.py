@@ -28,10 +28,6 @@ MESSAGES = {
     'Timestamp_Prefix':             'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
     'Timestamp_LeadingZeros':       'invalid argument 1: json: cannot unmarshal hex number with leading zero digits into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
     'Timestamp_Empty':              'invalid argument 1: json: cannot unmarshal hex string "0x" into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
-    'ParentHash_TooShort':          'invalid argument 1: hex string has length 62, want 64 for common.Hash',
-    'ParentHash_TooLong':           'invalid argument 1: hex string has length 66, want 64 for common.Hash',
-    'ParentHash_Odd':               'invalid argument 1: json: cannot unmarshal hex string of odd length into Go struct field PayloadAttributesV1.parentHash of type common.Hash',
-    'ParentHash_Prefix':            'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.parentHash of type common.Hash',
 }
 
 # Geth Client Specific Methods
