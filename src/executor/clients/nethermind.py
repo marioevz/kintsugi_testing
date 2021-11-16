@@ -2,6 +2,39 @@
 import re
 from os import path
 
+# Client specific messages:
+MESSAGES = {
+    'ExtraData_TooLong':            'invalid extradata length: 33',
+    'UnknownHeader':                'unknown header',
+    'FinalizedBlockHash_TooShort':  'Invalid params',
+    'FinalizedBlockHash_TooLong':   'Invalid params',
+    'FinalizedBlockHash_Odd':       'Invalid params',
+    'FinalizedBlockHash_Prefix':    'Invalid params',
+    'HeadBlockHash_TooShort':       'Invalid params',
+    'HeadBlockHash_TooLong':        'Invalid params',
+    'HeadBlockHash_Odd':            'Invalid params',
+    'HeadBlockHash_Prefix':         'Invalid params',
+    'SafeBlockHash_TooShort':       'Invalid params',
+    'SafeBlockHash_TooLong':        'Invalid params',
+    'SafeBlockHash_Odd':            'Invalid params',
+    'SafeBlockHash_Prefix':         'Invalid params',
+    'Random_TooShort':              'Invalid params',
+    'Random_TooLong':               'Invalid params',
+    'Random_Odd':                   'Invalid params',
+    'Random_Prefix':                'Invalid params',
+    'FeeRecipient_TooShort':        'Invalid params',
+    'FeeRecipient_TooLong':         'Invalid params',
+    'FeeRecipient_Odd':             'Invalid params',
+    'FeeRecipient_Prefix':          'Invalid params',
+    'Timestamp_Prefix':             'Invalid params',
+    'Timestamp_LeadingZeros':       'Invalid params',
+    'Timestamp_Empty':              'Invalid params',
+    'ParentHash_TooShort':          'Invalid params',
+    'ParentHash_TooLong':           'Invalid params',
+    'ParentHash_Odd':               'Invalid params',
+    'ParentHash_Prefix':            'Invalid params',
+}
+
 # Geth Client Specific Methods
 def port_num() -> int:
     return 8550

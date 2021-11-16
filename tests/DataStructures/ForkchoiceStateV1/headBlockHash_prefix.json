@@ -53,10 +53,9 @@
                     "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
                 }
             ],
-            "id": 67,
             "expectError": {
                 "code": -32602,
-                "message": ":re (invalid argument 0: json: cannot unmarshal hex string without 0x prefix into Go struct field ForkchoiceStateV1.headBlockHash of type common.Hash|Invalid params)"
+                "message": ":message HeadBlockHash_Prefix"
             }
         }
     ]

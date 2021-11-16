@@ -1,6 +1,39 @@
 #!/usr/bin/env python3
 import re
 
+# Client specific messages:
+MESSAGES = {
+    'ExtraData_TooLong':            'invalid extradata length: 33',
+    'UnknownHeader':                'unknown header',
+    'FinalizedBlockHash_TooShort':  'invalid argument 0: hex string has length 62, want 64 for common.Hash',
+    'FinalizedBlockHash_TooLong':   'invalid argument 0: hex string has length 66, want 64 for common.Hash',
+    'FinalizedBlockHash_Odd':       'invalid argument 0: json: cannot unmarshal hex string of odd length into Go struct field ForkchoiceStateV1.finalizedBlockHash of type common.Hash',
+    'FinalizedBlockHash_Prefix':    'invalid argument 0: json: cannot unmarshal hex string without 0x prefix into Go struct field ForkchoiceStateV1.finalizedBlockHash of type common.Hash',
+    'HeadBlockHash_TooShort':       'invalid argument 0: hex string has length 62, want 64 for common.Hash',
+    'HeadBlockHash_TooLong':        'invalid argument 0: hex string has length 66, want 64 for common.Hash',
+    'HeadBlockHash_Odd':            'invalid argument 0: json: cannot unmarshal hex string of odd length into Go struct field ForkchoiceStateV1.headBlockHash of type common.Hash',
+    'HeadBlockHash_Prefix':         'invalid argument 0: json: cannot unmarshal hex string without 0x prefix into Go struct field ForkchoiceStateV1.headBlockHash of type common.Hash',
+    'SafeBlockHash_TooShort':       'invalid argument 0: hex string has length 62, want 64 for common.Hash',
+    'SafeBlockHash_TooLong':        'invalid argument 0: hex string has length 66, want 64 for common.Hash',
+    'SafeBlockHash_Odd':            'invalid argument 0: json: cannot unmarshal hex string of odd length into Go struct field ForkchoiceStateV1.safeBlockHash of type common.Hash',
+    'SafeBlockHash_Prefix':         'invalid argument 0: json: cannot unmarshal hex string without 0x prefix into Go struct field ForkchoiceStateV1.safeBlockHash of type common.Hash',
+    'Random_TooShort':              'invalid argument 1: hex string has length 62, want 64 for common.Hash',
+    'Random_TooLong':               'invalid argument 1: hex string has length 66, want 64 for common.Hash',
+    'Random_Odd':                   'invalid argument 1: json: cannot unmarshal hex string of odd length into Go struct field PayloadAttributesV1.random of type common.Hash',
+    'Random_Prefix':                'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.random of type common.Hash',
+    'FeeRecipient_TooShort':        'invalid argument 1: hex string has length 38, want 40 for common.Address',
+    'FeeRecipient_TooLong':         'invalid argument 1: hex string has length 42, want 40 for common.Address',
+    'FeeRecipient_Odd':             'invalid argument 1: json: cannot unmarshal hex string of odd length into Go struct field PayloadAttributesV1.feeRecipient of type common.Address',
+    'FeeRecipient_Prefix':          'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.feeRecipient of type common.Address',
+    'Timestamp_Prefix':             'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
+    'Timestamp_LeadingZeros':       'invalid argument 1: json: cannot unmarshal hex number with leading zero digits into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
+    'Timestamp_Empty':              'invalid argument 1: json: cannot unmarshal hex string "0x" into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
+    'ParentHash_TooShort':          'invalid argument 1: hex string has length 62, want 64 for common.Hash',
+    'ParentHash_TooLong':           'invalid argument 1: hex string has length 66, want 64 for common.Hash',
+    'ParentHash_Odd':               'invalid argument 1: json: cannot unmarshal hex string of odd length into Go struct field PayloadAttributesV1.parentHash of type common.Hash',
+    'ParentHash_Prefix':            'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.parentHash of type common.Hash',
+}
+
 # Geth Client Specific Methods
 def port_num() -> int:
     return 8545

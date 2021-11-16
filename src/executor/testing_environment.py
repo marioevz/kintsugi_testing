@@ -49,6 +49,15 @@ class TestingEnvironment:
             return f"{pattern} doesn't match {resp}"
         return None
     
+    def check_message(self, resp, expect):
+        message_keyword = expect.split()[1]
+        message_pattern = self.client.get_message(message_keyword)
+        if message_pattern is None:
+            return f"Message {message_keyword} is not defined for client '{self.client.client_name}'"
+        if message_pattern != resp:
+            return f'"{message_pattern}" doesn\'t match "{resp}"'
+        return None
+    
     def check_expect_diff(self, k_route, resp, expect) -> Union[None, str]:
 
         if type(resp) != type(expect):
@@ -66,6 +75,10 @@ class TestingEnvironment:
                 return ', '.join(diffs)
         elif type(expect) is str and expect.startswith(':re '):
             res = self.check_regex(resp, expect)
+            if res:
+                return f'{"/".join(k_route)}, {res}'
+        elif type(expect) is str and expect.startswith(':message '):
+            res = self.check_message(resp, expect)
             if res:
                 return f'{"/".join(k_route)}, {res}'
         elif resp != expect:

@@ -53,10 +53,9 @@
                     "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf"
                 }
             ],
-            "id": 67,
             "expectError": {
                 "code": -32602,
-                "message": ":re (invalid argument 1: hex string has length 38, want 40 for common.Address|Invalid params)"
+                "message": ":message FeeRecipient_TooShort"
             }
         }
     ]

@@ -24,6 +24,7 @@ def write_genesis(config) -> str:
 
 class Client:
     # Instance variables
+    client_name     = ''
     client_methods  = None
     node_process    = None
     config          = None
@@ -34,6 +35,7 @@ class Client:
             config['client'] = 'geth'
         if not config['client'] in SUPPORTED_CLIENTS:
             raise Exception(f'Client {config["client"]} not supported')
+        self.client_name = config['client']
         if not 'client_binary' in config or not config['client_binary']:
             config['client_binary'] = shutil.which(config['client'])
         self.client_methods = SUPPORTED_CLIENTS[config['client']]
@@ -60,6 +62,11 @@ class Client:
         if not self.node_process:
             raise Exception('Node process does not exist')
         self.client_methods.detect_start(self.node_process)
+    
+    def get_message(self, keyword):
+        if not keyword in self.client_methods.MESSAGES:
+            return None
+        return self.client_methods.MESSAGES[keyword]
     
     def start(self):
         cwd = self.config["client_working_path"] if "client_working_path" in self.config else None

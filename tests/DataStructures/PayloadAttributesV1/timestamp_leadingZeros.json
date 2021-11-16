@@ -48,15 +48,14 @@
                 },
                 {
                     "parentHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a",
-                    "timestamp": "0x05",
+                    "timestamp": "0x0005",
                     "random": "0x0000000000000000000000000000000000000000000000000000000000000000",
                     "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
                 }
             ],
-            "id": 67,
             "expectError": {
                 "code": -32602,
-                "message": ":re (invalid argument 1: json: cannot unmarshal hex number with leading zero digits into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64|Invalid params)"
+                "message": ":message Timestamp_LeadingZeros"
             }
         }
     ]
