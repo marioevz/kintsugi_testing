@@ -1,0 +1,67 @@
+{
+    "genesis": {
+        "config": {
+            "chainId": 1,
+            "homesteadBlock": 0,
+            "eip150Block": 0,
+            "eip155Block": 0,
+            "eip158Block": 0,
+            "byzantiumBlock": 0,
+            "constantinopleBlock": 0,
+            "petersburgBlock": 0,
+            "istanbulBlock": 0,
+            "muirGlacierBlock": 0,
+            "berlinBlock": 0,
+            "londonBlock": 0,
+            "clique": {
+                "period": 5,
+                "epoch": 30000
+            },
+            "terminalTotalDifficulty": 0
+        },
+        "nonce": "0x42",
+        "timestamp": "0x0",
+        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "gasLimit": "0x1C9C380",
+        "difficulty": "0x400000000",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+            "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b": {
+                "balance": "0x6d6172697573766477000000"
+            },
+            "0x000000000000000000000000000000ca1100f022": {
+                "code": "0x424255",
+                "storage": {},
+                "balance": "0x0",
+                "nonce": "0x0"
+            }
+        },
+        "number": "0x0",
+        "gasUsed": "0x0",
+        "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "baseFeePerGas": "0x7"
+    },
+    "steps": 
+    [
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0xb6c07349cad2fbb1c23129a5a1b1ecd02c3e10b0973baba17cd2f4d2c767cf9c",
+                    "safeBlockHash": "0xb6c07349cad2fbb1c23129a5a1b1ecd02c3e10b0973baba17cd2f4d2c767cf9c",
+                    "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+                },
+                {
+                    "timestamp": "0x0",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                    "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+                }
+            ],
+            "expectError": {
+                "code": -32000,
+                "message": ":message InvalidTimestamp"
+            }
+        }
+    ]
+}

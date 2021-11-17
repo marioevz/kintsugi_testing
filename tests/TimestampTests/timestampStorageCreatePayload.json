@@ -1,0 +1,151 @@
+{
+    "genesis": {
+        "config": {
+            "chainId": 1,
+            "homesteadBlock": 0,
+            "eip150Block": 0,
+            "eip155Block": 0,
+            "eip158Block": 0,
+            "byzantiumBlock": 0,
+            "constantinopleBlock": 0,
+            "petersburgBlock": 0,
+            "istanbulBlock": 0,
+            "muirGlacierBlock": 0,
+            "berlinBlock": 0,
+            "londonBlock": 0,
+            "clique": {
+                "period": 5,
+                "epoch": 30000
+            },
+            "terminalTotalDifficulty": 0
+        },
+        "nonce": "0x42",
+        "timestamp": "0x0",
+        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "gasLimit": "0x1C9C380",
+        "difficulty": "0x400000000",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+            "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b": {
+                "balance": "0x6d6172697573766477000000"
+            },
+            "0x000000000000000000000000000000ca1100f022": {
+                "code": "0x424255",
+                "storage": {},
+                "balance": "0x0",
+                "nonce": "0x0"
+            }
+        },
+        "number": "0x0",
+        "gasUsed": "0x0",
+        "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "baseFeePerGas": "0x7"
+    },
+    "steps": 
+    [
+        {
+            "comment": "Transaction that calls 0x000000000000000000000000000000ca1100f022 and contains the TIMESTAMP opcode into storage.",
+            "method": "eth_sendRawTransaction",
+            "params": [
+                "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+            ],
+            "expect": "0x28d01c44d46217e141e02783a89ffff35d3f91fd9ce91649fad6375fd5c0beca"
+        },
+        {
+            "comment": "Create a block with the specified timestamp.",
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0xb6c07349cad2fbb1c23129a5a1b1ecd02c3e10b0973baba17cd2f4d2c767cf9c",
+                    "safeBlockHash": "0xb6c07349cad2fbb1c23129a5a1b1ecd02c3e10b0973baba17cd2f4d2c767cf9c",
+                    "finalizedBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+                },
+                {
+                    "timestamp": "0x1234",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                    "feeRecipient": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b"
+                }
+            ],
+            "expect": {
+                "status": "SUCCESS",
+                "payloadId": ":re 0x[0-9a-f]{16}"
+            }
+        },
+        {
+            "method": "engine_getPayloadV1",
+            "params": [
+                ":payloadId"
+            ],
+            "expect": {
+                "parentHash": "0xb6c07349cad2fbb1c23129a5a1b1ecd02c3e10b0973baba17cd2f4d2c767cf9c",
+                "coinbase": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+                "stateRoot": "0xb7eb1baf39e403268aa1e299f73d05b8bb0931e53f5e52055cdb3dfda375e5ff",
+                "receiptRoot": "0x4e3c608a9f2e129fccb91a1dae7472e78013b8e654bccc8d224ce3d63ae17006",
+                "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                "random": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "blockNumber": "0x1",
+                "gasLimit": "0x1c9c380",
+                "gasUsed": "0xa860",
+                "timestamp": "0x1234",
+                "extraData": "0x",
+                "baseFeePerGas": "0x7",
+                "blockHash": "0xd0cd6407fa2dbc946aaebd3cde345f546cf25c8cd1919d75dca2fbba16c06039",
+                "transactions": [
+                    "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+                ]
+            }
+        },
+        {
+            "method": "engine_executePayloadV1",
+            "params": [
+                {
+                    "parentHash": "0xb6c07349cad2fbb1c23129a5a1b1ecd02c3e10b0973baba17cd2f4d2c767cf9c",
+                    "coinbase": "0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b",
+                    "stateRoot": "0xb7eb1baf39e403268aa1e299f73d05b8bb0931e53f5e52055cdb3dfda375e5ff",
+                    "receiptRoot": "0x4e3c608a9f2e129fccb91a1dae7472e78013b8e654bccc8d224ce3d63ae17006",
+                    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                    "random": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                    "blockNumber": "0x1",
+                    "gasLimit": "0x1c9c380",
+                    "gasUsed": "0xa860",
+                    "timestamp": "0x1234",
+                    "extraData": "0x",
+                    "baseFeePerGas": "0x7",
+                    "blockHash": "0xd0cd6407fa2dbc946aaebd3cde345f546cf25c8cd1919d75dca2fbba16c06039",
+                    "transactions": [
+                        "0xf8668081808401312d0094000000000000000000000000000000ca1100f02284ec43921b8026a020ea8ae79858bf894d88ab9603627bc7951534ad60cdad01f7c04b2fab636674a05107099d4aff08b8e20dfac21d5a1097f45bb547b9bf392b37b5a9e32e8d87f9"
+                    ]
+                }
+            ],
+            "expect": {
+                "status": "VALID",
+                "latestValidHash": "0xd0cd6407fa2dbc946aaebd3cde345f546cf25c8cd1919d75dca2fbba16c06039"
+            }
+        },
+        {
+            "method": "engine_forkchoiceUpdatedV1",
+            "params": [
+                {
+                    "headBlockHash": "0xd0cd6407fa2dbc946aaebd3cde345f546cf25c8cd1919d75dca2fbba16c06039",
+                    "safeBlockHash": "0xd0cd6407fa2dbc946aaebd3cde345f546cf25c8cd1919d75dca2fbba16c06039",
+                    "finalizedBlockHash": "0xd0cd6407fa2dbc946aaebd3cde345f546cf25c8cd1919d75dca2fbba16c06039"
+                },
+                null
+            ],
+            "expect": {
+                "status": "SUCCESS",
+                "payloadId": null
+            }
+        },
+        {
+            "method": "eth_getStorageAt",
+            "params": [
+                "0x000000000000000000000000000000ca1100f022",
+                "0x0000000000000000000000000000000000000000000000000000000000001234",
+                "latest"
+            ],
+            "expect": "0x0000000000000000000000000000000000000000000000000000000000001234"
+        }
+    ]
+}
