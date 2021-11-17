@@ -4,32 +4,102 @@ from os import path
 
 # Client specific messages:
 MESSAGES = {
-    'ExtraData_TooLong':            'invalid extradata length: 33',
     'UnknownHeader':                'unknown header',
+
     'FinalizedBlockHash_TooShort':  'Invalid params',
     'FinalizedBlockHash_TooLong':   'Invalid params',
     'FinalizedBlockHash_Odd':       'Invalid params',
     'FinalizedBlockHash_Prefix':    'Invalid params',
+
     'HeadBlockHash_TooShort':       'Invalid params',
     'HeadBlockHash_TooLong':        'Invalid params',
     'HeadBlockHash_Odd':            'Invalid params',
     'HeadBlockHash_Prefix':         'Invalid params',
+
     'SafeBlockHash_TooShort':       'Invalid params',
     'SafeBlockHash_TooLong':        'Invalid params',
     'SafeBlockHash_Odd':            'Invalid params',
     'SafeBlockHash_Prefix':         'Invalid params',
+
     'Random_TooShort':              'Invalid params',
     'Random_TooLong':               'Invalid params',
     'Random_Odd':                   'Invalid params',
     'Random_Prefix':                'Invalid params',
+
     'FeeRecipient_TooShort':        'Invalid params',
     'FeeRecipient_TooLong':         'Invalid params',
     'FeeRecipient_Odd':             'Invalid params',
     'FeeRecipient_Prefix':          'Invalid params',
+
     'Timestamp_Prefix':             'Invalid params',
     'Timestamp_LeadingZeros':       'Invalid params',
     'Timestamp_Empty':              'Invalid params',
-    'Timestamp_Long':               'Invalid params'
+    'Timestamp_Long':               'Invalid params',
+
+    'BlockHash_TooLong':            'Invalid params',                                                                                                              
+    'BlockHash_Odd':                'Invalid params',                                                                                                                  
+    'BlockHash_Prefix':             'Invalid params',
+    'BlockHash_TooShort':           'Invalid params',
+
+    'Coinbase_TooLong':             'Invalid params',
+    'Coinbase_Odd':                 'Invalid params',
+    'Coinbase_Prefix':              'Invalid params',
+    'Coinbase_TooShort':            'Invalid params',
+
+    'ExtraData_TooLong':            'Invalid params',
+    'ExtraData_Odd':                'Invalid params',
+    'ExtraData_Prefix':             'Invalid params',
+
+    'LogsBloom_TooLong':            'Invalid params',
+    'LogsBloom_Odd':                'Invalid params',
+    'LogsBloom_Prefix':             'Invalid params',
+    'LogsBloom_Short':              'Invalid params',
+
+    'ParentHash_Exec_TooLong':      'Invalid params',
+    'ParentHash_Exec_Odd':          'Invalid params',
+    'ParentHash_Exec_Prefix':       'Invalid params',
+    'ParentHash_Exec_TooShort':     'Invalid params',
+
+    'Random_Exec_TooLong':          'Invalid params',
+    'Random_Exec_Odd':              'Invalid params',
+    'Random_Exec_Prefix':           'Invalid params',
+    'Random_Exec_TooShort':         'Invalid params',
+
+    'ReceiptRoot_TooLong':          'Invalid params',
+    'ReceiptRoot_Odd':              'Invalid params',
+    'ReceiptRoot_Prefix':           'Invalid params',
+    'ReceiptRoot_TooShort':         'Invalid params',
+
+    'StateRoot_TooLong':            'Invalid params',
+    'StateRoot_Odd':                'Invalid params',
+    'StateRoot_Prefix':             'Invalid params',
+    'StateRoot_TooShort':           'Invalid params',
+
+    'BlockNumber_Empty':            'Invalid params',
+    'BlockNumber_LeadingZeros':     'Invalid params',
+    'BlockNumber_TooLong':          'Invalid params',
+    'BlockNumber_Prefix':           'Invalid params',
+    
+    'GasLimit_Empty':               'Invalid params',
+    'GasLimit_LeadingZeros':        'Invalid params',
+    'GasLimit_TooLong':             'Invalid params',
+    'GasLimit_Prefix':              'Invalid params',
+
+    'GasUsed_Empty':                'Invalid params',
+    'GasUsed_LeadingZeros':         'Invalid params',
+    'GasUsed_TooLong':              'Invalid params',
+    'GasUsed_Prefix':               'Invalid params',
+
+    'Timestamp_Exec_Empty':         'Invalid params',
+    'Timestamp_Exec_LeadingZeros':  'Invalid params',
+    'Timestamp_Exec_TooLong':       'Invalid params',
+    'Timestamp_Exec_Prefix':        'Invalid params',
+
+    'BaseFeePerGas_Empty':          'Invalid params',
+    'BaseFeePerGas_LeadingZeros':   'Invalid params',
+    'BaseFeePerGas_TooLong':        'Invalid params',
+    'BaseFeePerGas_Prefix':         'Invalid params',
+
 }
 
 # Geth Client Specific Methods
