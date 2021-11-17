@@ -28,6 +28,7 @@ MESSAGES = {
     'Timestamp_Prefix':             'invalid argument 1: json: cannot unmarshal hex string without 0x prefix into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
     'Timestamp_LeadingZeros':       'invalid argument 1: json: cannot unmarshal hex number with leading zero digits into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
     'Timestamp_Empty':              'invalid argument 1: json: cannot unmarshal hex string "0x" into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64',
+    'Timestamp_Long':               'invalid argument 1: json: cannot unmarshal hex number > 64 bits into Go struct field PayloadAttributesV1.timestamp of type hexutil.Uint64'
 }
 
 # Geth Client Specific Methods
