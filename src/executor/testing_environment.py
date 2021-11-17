@@ -72,7 +72,7 @@ class TestingEnvironment:
                 if diff:
                     diffs.append(diff)
             if diffs:
-                return ', '.join(diffs)
+                return '\n'.join(diffs)
         elif type(expect) is str and expect.startswith(':re '):
             res = self.check_regex(resp, expect)
             if res:
@@ -116,7 +116,7 @@ class TestingEnvironment:
                 diff = self.check_expect_diff(["expect"], resp, step["expect"])
 
                 if diff:
-                    return False, f'\'expect\' doesn\'t match response: {diff}'
+                    return False, f'\'expect\' doesn\'t match response:\n{diff}'
             
             elif "expectError" in step:
                 if not err:

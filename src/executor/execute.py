@@ -12,7 +12,7 @@ sys.path.append(tests_path)
 
 def executeTest(tc_name, config={}):
 
-    print(f"Loading {tc_name}")
+    print(f"# Running {tc_name}")
 
     tc = None
     err = None
@@ -70,13 +70,14 @@ def executeTest(tc_name, config={}):
 def executeCategory(cat_name, config={}):
     if not path.isdir(path.join(tests_path, cat_name)):
         raise Exception('Invalid category name')
-    print(f"Loading category {cat_name}")
+    print(f"## Running category {cat_name}")
     listed_dir = [x for x in listdir(path.join(tests_path, cat_name)) if not x.startswith('_')]
     results = []
     for d in [x for x in listed_dir if path.isdir(path.join(tests_path, cat_name, x))]:
         results += executeCategory(path.join(cat_name, d), config)
-    for f in [x for x in listed_dir if path.isfile(path.join(tests_path, cat_name, x))]:
-        results.append(executeTest(path.splitext(path.join(cat_name, f))[0], config))
+    for f in sorted([x for x in listed_dir if path.isfile(path.join(tests_path, cat_name, x))]):
+        test_case = path.splitext(path.join(cat_name, f))[0]
+        results.append((test_case, executeTest(test_case, config)))
     return results
 
 if __name__ == "__main__":
@@ -93,7 +94,10 @@ if __name__ == "__main__":
     for tc_name in args.test_files:
         if path.isdir(path.join(tests_path, tc_name)):
             results = executeCategory(tc_name, config=vars(args))
-            print(f"\nTest passed {sum(results)}/{len(results)}")
+            failing_tests = [x[0] for x  in results if not x[1]]
+            print(f"\nTest passed {len(results) - len(failing_tests)}/{len(results)}")
+            if failing_tests:
+                print("Failing tests:\n" + '\n'.join(failing_tests))
         else:
-            executeTest(tc_name, config=vars(args))
+            result = executeTest(tc_name, config=vars(args))
 
