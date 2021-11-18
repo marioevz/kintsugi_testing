@@ -40,6 +40,7 @@
                 "nonce": "0x0"
             },
             "0x000000000000000000000000000000ca1100f022": {
+                "source": ":yul { sstore(1, 1); sstore(random, random); sstore(2, 2) }",
                 "code": "0x60016001554444556002600255",
                 "storage": {},
                 "balance": "0x0",
