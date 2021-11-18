@@ -11,3 +11,6 @@ Adhoc Testing Framework for Kintsugi Tests
 ```
 ./src/executor/execute.py <Test case name> --client nethermind [--client-binary /path/to/dotnet] --client-working-path /path/to/Nethermind.Runner
 ```
+
+## Dependencies
+`requests`
