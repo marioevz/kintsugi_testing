@@ -3,6 +3,12 @@ from typing import Union, Tuple
 from tempfile import TemporaryDirectory
 from client import Client
 import re
+
+### General config constants
+
+# If true, when the expected response has a null value in any key, the key can be absent and the response will still pass.
+NULL_VALUE_EQ_ABSENT_KEY = True
+
 class TestingEnvironment:
     data_dir            = None
     current_method_id   = 0
@@ -61,11 +67,17 @@ class TestingEnvironment:
     def check_expect_diff(self, k_route, resp, expect) -> Union[None, str]:
 
         if type(resp) != type(expect):
-            return f"{'/'.join(k_route)} has unexpected type"
+            return f"{'/'.join(k_route)} has unexpected type, {type(resp)}"
 
         if type(resp) is dict:
-            if resp.keys() ^ expect.keys():
-                return f'Conflicting keys: {resp.keys() ^ expect.keys()}, {resp}'
+            diff_keys = resp.keys() ^ expect.keys()
+            if diff_keys:
+                if not NULL_VALUE_EQ_ABSENT_KEY:
+                    return f'Conflicting keys: {resp.keys() ^ expect.keys()}, {resp}'
+                for dk in diff_keys:
+                    if dk in expect and expect[dk] is None:
+                        continue
+                    return f'Conflicting keys: {resp.keys() ^ expect.keys()}, {resp}'
             diffs = []
             for k in resp.keys():
                 diff = self.check_expect_diff(k_route + [k], resp[k], expect[k])
