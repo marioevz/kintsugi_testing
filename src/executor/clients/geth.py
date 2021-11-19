@@ -4,6 +4,7 @@ import re
 # Client specific messages:
 MESSAGES = {
     'UnknownHeader':                'unknown header',
+    'UnknownPayload':               'unknown payload',
 
     'FinalizedBlockHash_TooShort':  'invalid argument 0: hex string has length 62, want 64 for common.Hash',
     'FinalizedBlockHash_TooLong':   'invalid argument 0: hex string has length 66, want 64 for common.Hash',

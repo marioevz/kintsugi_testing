@@ -5,6 +5,7 @@ from os import path
 # Client specific messages:
 MESSAGES = {
     'UnknownHeader':                'unknown header',
+    'UnknownPayload':               'unknown payload',
 
     'FinalizedBlockHash_TooShort':  'Invalid params',
     'FinalizedBlockHash_TooLong':   'Invalid params',
