@@ -96,14 +96,13 @@
             "params": [
                 "0xf85f011082520894a94f5374fce5edbc8e2a8697c15331677e6ebf0b018026a009b48a2d241221f90ae49dba69b5c3ce45506258a7018c1fb7f0951805f4768ca002b5c738fa189e045787c850d5485e601174939c02e8e81d3e484c1a085eaf47"
             ],
-            "expect": "0x28d01c44d46217e141e02783a89ffff35d3f91fd9ce91649fad6375fd5c0beca"
+            "expect": "0x756160707a9dab56206c4cf83a0094b783035ee283d3b2d00d1cc66eafd505cb"
         },
-
         {
             "comment": "Get same payload again, the transaction should be excluded from this payload.",
             "method": "engine_getPayloadV1",
             "params": [
-                ":payloadId -1"
+                ":payloadId -3"
             ],
             "expect": {
                 "parentHash": "0x3b8fb240d288781d4aac94d3fd16809ee413bc99294a085798a589dae51ddd4a",
